@@ -3,6 +3,7 @@ package com.nycsagnes.beehive.domain;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Entity
 @Data
@@ -22,6 +23,8 @@ public class Bee {
     private BeeType beeType;
 
     @ManyToOne
+    @ToString.Exclude
     @JoinColumn(name = "hive_id")
     private Hive hive;
+
 }
