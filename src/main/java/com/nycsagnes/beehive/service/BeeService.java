@@ -31,7 +31,7 @@ public class BeeService {
 
     public BeeInfo save(BeeCreateUpdateCommand command){
         Bee bee = modelMapper.map(command, Bee.class);
-        Hive hive = hiveService.findById(command.getHiveId());
+        Hive hive = hiveService.findEntityById(command.getHiveId());
         bee.setHive(hive);
         beeRepository.save(bee);
         return modelMapper.map(bee, BeeInfo.class);
@@ -51,7 +51,7 @@ public class BeeService {
     public BeeInfo updateBee(Long id, @Valid BeeCreateUpdateCommand command) {
         Bee existingBee = beeRepository.findById(id).orElseThrow(() -> new BeeNotFoundException(id));
         modelMapper.map(command, existingBee);
-        Hive hive = hiveService.findById(command.getHiveId());
+        Hive hive = hiveService.findEntityById(command.getHiveId());
         existingBee.setHive(hive);
         return modelMapper.map(existingBee, BeeInfo.class);
     }

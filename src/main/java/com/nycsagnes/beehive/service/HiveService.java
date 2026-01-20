@@ -33,13 +33,18 @@ public class HiveService {
         return modelMapper.map(hive, HiveInfo.class);
     }
 
-    public Hive findById(@NotNull Long hiveId) {
-        return hiveRepository.findById(hiveId).orElseThrow(() -> new HiveNotFoundException(hiveId));
+    public HiveInfo findById(@NotNull Long hiveId) {
+        Hive hiveEntity = hiveRepository.findById(hiveId).orElseThrow(() -> new HiveNotFoundException(hiveId));
+        return modelMapper.map(hiveEntity, HiveInfo.class);
     }
 
     public List<HiveInfo> findAll() {
         return hiveRepository.findAll().stream()
                 .map(hive -> modelMapper.map(hive, HiveInfo.class))
                 .toList();
+    }
+
+    public Hive findEntityById(@NotNull Long hiveId) {
+        return hiveRepository.findById(hiveId).orElseThrow(() -> new HiveNotFoundException(hiveId));
     }
 }

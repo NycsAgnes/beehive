@@ -1,11 +1,13 @@
 package com.nycsagnes.beehive.controller;
 
 import com.nycsagnes.beehive.dto.incoming.HiveCreateUpdateCommand;
+import com.nycsagnes.beehive.dto.outgoing.HiveInfo;
 import com.nycsagnes.beehive.service.HiveService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -25,6 +27,17 @@ public class WebHiveController {
         log.info("Web Request, GET /web/hives");
         model.addAttribute("hives", hiveService.findAll());
         return "hiveTemplates/hives";
+    }
+
+    @GetMapping("/{id}")
+    public String getHiveDetails(@PathVariable Long id, Model model) {
+        log.info("Web Request, GET /web/hives/{id}");
+        HiveInfo foundHive = hiveService.findById(id);
+        if (foundHive == null) {
+            return "redirect:/web/hives";
+        }
+        model.addAttribute("hive", foundHive);
+        return "hiveTemplates/hive-details";
     }
 
     @GetMapping("/new")
