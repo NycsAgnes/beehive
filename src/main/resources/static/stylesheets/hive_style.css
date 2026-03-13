@@ -38,7 +38,11 @@ h1, h2, h3, .stats-bar {
 }
 
 .page-title {
-    font-size: clamp(1.5rem, 5vw, 3rem);
+    font-size: 4vw;
+}
+
+.stats-bar {
+    font-size: 2vw;
 }
 
 .header-section {
@@ -74,11 +78,158 @@ h1, h2, h3, .stats-bar {
 }
 
 .button-container {
+    /* Deprecated but kept for other pages if needed, specifically hives.html uses it? Yes. */
     position: relative;
     width: 90%;
     height: 50px;
     padding: 0 5vw 0 5vw;
     margin: 5vw auto 5vw auto;
+}
+
+/* Unified Controls for Bees Page */
+.controls-wrapper {
+    position: relative;
+    width: 95%;
+    max-width: 1200px;
+    margin: 2vw auto 4vw auto;
+    z-index: 150;
+}
+
+.controls-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.control-item {
+    flex: 0 0 50px;
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    justify-content: center;
+    background-color: var(--text-dark);
+}
+
+.control-item.btn-nav {
+    flex: 0 0 auto; /* Nav buttons don't shrink as much */
+    min-width: auto;
+}
+
+.active-filter {
+    background-color: var(--navi-button) !important; /* Highlight active filter */
+    box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+}
+
+.dropdown-wrapper {
+    position: relative;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 200;
+}
+
+.controls-toggle-check,
+.filter-toggle-check {
+    display: none !important;
+}
+
+.controls-toggle-btn,
+.dropdown-trigger {
+    width: auto !important;
+    height: 50px !important;
+    padding: 0 25px !important;
+    border-radius: 25px !important;
+    display: inline-flex !important;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    background-color: var(--text-dark);
+    color: var(--white);
+    transition: transform 0.2s, box-shadow 0.2s !important;
+}
+
+.controls-toggle-btn {
+    display: none !important;
+}
+
+/* Az ikon és a szöveg mindig látható marad (felülírja az alap morph rejtést) */
+.controls-toggle-btn .btn-icon,
+.controls-toggle-btn .btn-text,
+.dropdown-trigger .btn-icon,
+.dropdown-trigger .btn-text {
+    opacity: 1 !important;
+    max-width: none !important;
+    width: auto !important;
+    transform: none !important;
+    margin: 0 5px !important;
+    display: flex !important; /* inline-block helyett flex a tökéletes középre igazításhoz */
+    align-items: center !important;
+    justify-content: center !important;
+    height: 100% !important;
+    line-height: 1 !important;
+}
+
+.controls-toggle-btn:hover {
+    transform: translateX(-50%) scale(0.98) !important;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
+}
+
+.dropdown-trigger:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2) !important;
+}
+
+.dropdown-content {
+    display: none; /* Alapból rejtve */
+    position: absolute;
+    top: 110%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--white);
+    min-width: 220px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    overflow: hidden;
+    z-index: 300;
+}
+
+/* KATTINTÁS (CHECKBOX BEPIPÁLVA) ESETÉN MEGJELENIK A MENÜ */
+.filter-toggle-check:checked ~ .dropdown-content {
+    display: block;
+    animation: fadeInDown 0.3s ease;
+}
+
+.dropdown-item {
+    color: var(--text-dark);
+    padding: 12px 20px;
+    text-decoration: none;
+    display: block;
+    font-weight: bold;
+    text-align: left;
+    transition: background-color 0.2s;
+    font-size: 1.1rem;
+}
+
+.dropdown-item:hover {
+    background-color: var(--honey-background);
+}
+
+/* Aktív szűrő kiemelése */
+.active-dropdown-item {
+    background-color: var(--action-button);
+    color: var(--white);
+}
+
+.active-dropdown-item:hover {
+    background-color: #6fb3b2;
+}
+
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translate(-50%, -10px); }
+    to { opacity: 1; transform: translate(-50%, 0); }
 }
 
 .btn-action { background-color: var(--action-button); }
@@ -104,8 +255,8 @@ h1, h2, h3, .stats-bar {
 
 .btn-hex {
     position: absolute;
-    width: clamp(35px, 10vw, 45px);
-    height: clamp(35px, 10vw, 45px);
+    width: 10vw;
+    height: 10vw;
 }
 
 .btn-left {
@@ -133,7 +284,7 @@ h1, h2, h3, .stats-bar {
     font-weight: bold;
     flex-shrink: 0;
     height: 100%;
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 3vw, 3rem);
     margin: 0;
     padding: 0;
     line-height: 1;
@@ -415,7 +566,7 @@ input:focus {
 .honeycomb-text h3 {
     color: white;
     font-size: clamp(1rem, 5vw, 2rem);
-    margin: 0 0 5vw 0;
+    margin: 0 0 3vw 0;
     text-transform: uppercase;
     text-shadow: none;
 }
@@ -510,8 +661,8 @@ input:focus {
     font-size: 1rem;
     font-weight: normal;
     color: #f0f0f0;
-    margin-top: -5vw;
-    margin-bottom: 7.5vw;
+    margin-top: -1vw;
+    margin-bottom: 3vw;
     text-shadow: none;
     text-transform: none;
 }
@@ -631,6 +782,14 @@ input:focus {
         margin-left: 3.5vw;
         margin-right: 24.5vw;
     }
+
+    .page-title {
+        font-size: 3vw;
+    }
+
+    .stats-bar {
+        font-size: 2vw;
+    }
 }
 
 @media (max-width: 1024px) and (min-width: 431px) {
@@ -717,5 +876,151 @@ input:focus {
     }
     .bee-cell:nth-child(3n + 3), .drone-cell:nth-child(2n + 2) {
         margin-left: 8vw;
+    }
+
+    .controls-wrapper {
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+
+    /* 1. JAVÍTÁS: MINDKÉT CHECKBOX BIZTOS ELREJTÉSE */
+    .controls-toggle-check,
+    .filter-toggle-check {
+        display: none !important;
+    }
+
+    /* A Menu gomb stabilizálása (nincs táncolás, fix ikon+szöveg) */
+    .controls-toggle-btn {
+        display: inline-flex !important;
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%) !important;
+        z-index: 201;
+        margin-bottom: 10px;
+        width: auto !important;
+        height: 50px !important;
+        padding: 0 25px !important;
+        border-radius: 25px !important;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        background-color: var(--text-dark) !important;
+    }
+
+    .controls-toggle-btn:hover,
+    .controls-toggle-btn:active {
+        /* A translateX(-50%) MEG KELL MARADJON, hogy ne ugorjon oldalra! */
+        transform: translateX(-50%) scale(0.98) !important;
+    }
+
+    .controls-toggle-btn .btn-text,
+    .controls-toggle-btn .btn-icon {
+        opacity: 1 !important;
+        max-width: none !important;
+        width: auto !important;
+        transform: none !important;
+        margin: 0 5px !important;
+        display: flex !important; /* inline-block helyett flex a tökéletes középre igazításhoz */
+        align-items: center !important;
+        justify-content: center !important;
+        height: 100% !important;
+        line-height: 1 !important;
+    }
+
+    .controls-container {
+        display: none;
+        flex-direction: column;
+        background-color: rgba(255, 255, 255, 0.95);
+        padding: 50px 20px 20px 20px; /* Top padding for close */
+        border-radius: 15px;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        width: 100%;
+        position: relative;
+    }
+
+    .controls-toggle-check:checked ~ .controls-container {
+        display: flex;
+        animation: fadeIn 0.3s ease;
+    }
+
+    .control-item {
+        width: 100%;
+        margin-bottom: 10px;
+        border-radius: 10px;
+        padding: 0 20px;
+        justify-content: flex-start;
+        height: 50px;
+    }
+
+    .control-item .btn-text {
+        opacity: 1 !important;
+        max-width: none !important;
+        width: auto !important;
+        transform: none !important;
+        margin-left: 15px;
+    }
+
+    .control-item .btn-icon {
+        width: 30px !important;
+        opacity: 1 !important;
+        transform: scale(1) !important;
+    }
+
+    .control-item:hover {
+        transform: scale(1.02);
+        width: 100%;
+    }
+
+    .dropdown-trigger {
+        display: none !important;
+    }
+
+    .dropdown-wrapper {
+        width: 100%;
+        margin: 0;
+        display: block;
+    }
+
+    .dropdown-content {
+        display: flex !important;
+        flex-direction: column;
+        position: static !important;
+        box-shadow: none !important;
+        background: transparent !important;
+        min-width: 100%;
+        border: none !important;
+        padding: 0;
+        margin: 0;
+        transform: none !important;
+    }
+
+    .dropdown-item {
+        background-color: var(--text-dark);
+        color: var(--white);
+        border-radius: 10px;
+        margin-bottom: 10px;
+        height: 50px;
+        display: flex;
+        align-items: center;
+        padding: 0 20px;
+        font-weight: bold;
+        transition: transform 0.2s;
+    }
+
+    .dropdown-item:hover {
+        transform: scale(1.02);
+    }
+
+    .active-dropdown-item {
+        background-color: var(--navi-button);
+        box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    .page-title {
+        font-size: 5vw;
+    }
+
+    .stats-bar {
+        font-size: 4vw;
     }
 }

@@ -2,14 +2,14 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hive details</title>
+    <title>Bee-Registry Office</title>
     <link rel="stylesheet" th:href="@{/stylesheets/hive_style.css}">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 <div class="main-container">
     <div class="header-section">
-        <h1>🐝 Office 🐝</h1>
+        <h1 class="page-title">🐝 Office 🐝</h1>
         <div class="stats-bar">
             <span>Number of bees: <strong th:text="${bees.size()}">0</strong></span>
         </div>
@@ -18,16 +18,67 @@
         <span class="alert-icon">💀</span>
         <span th:text="${message}">Message appears here</span>
     </div>
-    <div class="button-container">
-        <a th:href="@{/web/hives}" class="morph-btn btn-nav btn-navi btn-left">
-            <span class="btn-icon">❮</span>
-            <span class="btn-text">Back to the Apiary</span>
-        </a>
-        <a th:href="@{/web/bees/create}" class="morph-btn btn-nav btn-action btn-right">
-            <span class="btn-icon">✚</span>
-            <span class="btn-text">Create New Bee</span>
-        </a>
+
+    <!-- Unified Controls Container -->
+    <div class="controls-wrapper">
+        <input type="checkbox" id="controls-toggle" class="controls-toggle-check"/>
+        <label for="controls-toggle" class="controls-toggle-btn morph-btn btn-navi">
+            <span class="btn-icon">☰</span>
+            <span class="btn-text">Menu</span>
+        </label>
+
+        <div class="controls-container">
+            <a th:href="@{/web/hives}" class="morph-btn btn-nav btn-navi control-item">
+                <span class="btn-icon">❮</span>
+                <span class="btn-text">Back to the Apiary</span>
+            </a>
+
+            <div class="dropdown-wrapper">
+                <input type="checkbox" id="filter-toggle" class="filter-toggle-check"/>
+
+                <label for="filter-toggle" class="dropdown-trigger morph-btn btn-action">
+                    <span class="btn-icon">⚙️</span>
+                    <span class="btn-text" style="opacity: 1; max-width: none; margin-left: 10px;">Filters</span>
+                </label>
+
+                <div class="dropdown-content">
+                    <a th:with="currentFilter=${param.filter}"
+                       th:href="${#strings.equals(currentFilter, 'HOMELESS')} ? @{/web/bees} : @{/web/bees(filter='HOMELESS')}"
+                       th:classappend="${#strings.equals(currentFilter, 'HOMELESS')} ? 'active-dropdown-item' : ''"
+                       class="dropdown-item">
+                        🏚️ Homeless
+                    </a>
+
+                    <a th:with="currentFilter=${param.filter}"
+                       th:href="${#strings.equals(currentFilter, 'QUEEN')} ? @{/web/bees} : @{/web/bees(filter='QUEEN')}"
+                       th:classappend="${#strings.equals(currentFilter, 'QUEEN')} ? 'active-dropdown-item' : ''"
+                       class="dropdown-item">
+                        👑 Queens
+                    </a>
+
+                    <a th:with="currentFilter=${param.filter}"
+                       th:href="${#strings.equals(currentFilter, 'DRONE')} ? @{/web/bees} : @{/web/bees(filter='DRONE')}"
+                       th:classappend="${#strings.equals(currentFilter, 'DRONE')} ? 'active-dropdown-item' : ''"
+                       class="dropdown-item">
+                        ♂️ Drones
+                    </a>
+
+                    <a th:with="currentFilter=${param.filter}"
+                       th:href="${#strings.equals(currentFilter, 'WORKER')} ? @{/web/bees} : @{/web/bees(filter='WORKER')}"
+                       th:classappend="${#strings.equals(currentFilter, 'WORKER')} ? 'active-dropdown-item' : ''"
+                       class="dropdown-item">
+                        🐝 Workers
+                    </a>
+                </div>
+            </div>
+
+            <a th:href="@{/web/bees/create}" class="morph-btn btn-nav btn-action control-item">
+                <span class="btn-icon">✚</span>
+                <span class="btn-text">Create New Bee</span>
+            </a>
+        </div>
     </div>
+
     <ul class="bee-grid">
         <li th:each="bee : ${bees}" class="bee-cell">
             <div class="bee-link">

@@ -45,27 +45,48 @@ public class BeeService {
     public BeeInfo findById(@NotNull Long id) {
         Bee bee = beeRepository.findById(id)
                 .orElseThrow(() -> new BeeNotFoundException(id));
-        BeeInfo info = modelMapper.map(bee, BeeInfo.class);
-        if (bee.getHive() != null) {
-            info.setHiveName(bee.getHive().getHiveName());
-        } else {
-            info.setHiveName("Hajléktalan");
-        }
-        return info;
+        return convertToBeeInfo(bee);
     }
 
     public List<BeeInfo> findAll() {
         return beeRepository.findAll().stream()
-                .map(bee -> {
-                    BeeInfo info = modelMapper.map(bee, BeeInfo.class);
-                    if (bee.getHive() != null) {
-                        info.setHiveName(bee.getHive().getHiveName());
-                    } else {
-                        info.setHiveName("Hajléktalan");
-                    }
-                    return info;
-                })
+                .map(this::convertToBeeInfo)
                 .toList();
+    }
+
+    public List<BeeInfo> findFiltered(String filter) {
+        List<Bee> bees = beeRepository.findAll();
+        
+        if (filter != null) {
+            switch (filter.toUpperCase()) {
+                case "QUEEN":
+                    bees = bees.stream().filter(b -> b.getBeeType() == BeeType.QUEEN).toList();
+                    break;
+                case "DRONE":
+                    bees = bees.stream().filter(b -> b.getBeeType() == BeeType.DRONE).toList();
+                    break;
+                case "WORKER":
+                    bees = bees.stream().filter(b -> b.getBeeType() == BeeType.WORKER).toList();
+                    break;
+                case "HOMELESS":
+                    bees = bees.stream().filter(b -> b.getHive() == null).toList();
+                    break;
+            }
+        }
+
+        return bees.stream()
+                .map(this::convertToBeeInfo)
+                .toList();
+    }
+
+    private BeeInfo convertToBeeInfo(Bee bee) {
+        BeeInfo info = modelMapper.map(bee, BeeInfo.class);
+        if (bee.getHive() != null) {
+            info.setHiveName(bee.getHive().getHiveName());
+        } else {
+            info.setHiveName("Homeless");
+        }
+        return info;
     }
 
     public BeeInfo updateBee(Long id, @Valid BeeCreateUpdateCommand command) {

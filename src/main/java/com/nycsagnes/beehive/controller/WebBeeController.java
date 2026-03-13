@@ -30,9 +30,9 @@ public class WebBeeController {
     }
 
     @GetMapping
-    public String listBeesPage(Model model) {
-        log.info("Http Request, GET /web/bees");
-        model.addAttribute("bees", beeService.findAll());
+    public String listBeesPage(@RequestParam(required = false) String filter, Model model) {
+        log.info("Http Request, GET /web/bees" + (filter != null ? "?filter=" + filter : ""));
+        model.addAttribute("bees", beeService.findFiltered(filter));
         return "beeTemplates/bees";
     }
 
