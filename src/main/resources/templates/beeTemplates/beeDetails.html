@@ -1,6 +1,4 @@
 <!DOCTYPE html>
-<html lang="en">
-<!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,17 +10,17 @@
 <div class="container">
     <header>
         <div class="header-section">
-            <h1>Adatlap</h1>
+            <h1>Datasheet</h1>
         </div>
         <div class="button-container">
             <a th:href="@{/web/bees}" class="morph-btn btn-nav btn-navi btn-left">
                 <span class="btn-icon">❮</span>
-                <span class="btn-text">Vissza az Irodába</span>
+                <span class="btn-text">Back to the Office</span>
             </a>
             <a th:if="${bee.hiveId != null}"
                th:href="@{/web/hives/{id}(id=${bee.hiveId})}" class="morph-btn btn-nav btn-navi btn-right">
                 <span class="btn-icon">❯</span>
-                <span class="btn-text">Vissza a Kaptárhoz</span>
+                <span class="btn-text">Back to the Hive</span>
             </a>
         </div>
     </header>
@@ -35,7 +33,7 @@
                 <div class="icon-overlay">"
                     <div class="morph-btn btn-hex btn-navi pos-top-left">
                         <span class="btn-icon">🏷️</span>
-                        <span class="btn-text" th:text="'Név: ' + *{beeName}">Név</span>
+                        <span class="btn-text" th:text="'Name: ' + *{beeName}">Name</span>
                     </div>
                     <div class="morph-btn btn-hex btn-navi pos-mid-left">
                         <span class="btn-icon" th:switch="*{beeType}">
@@ -44,17 +42,17 @@
                             <span th:case="'DRONE'">♂️</span>
                             <span th:case="*">❓</span>
                         </span>
-                        <span class="btn-text" th:text="*{beeType}">Munkakör</span>
+                        <span class="btn-text" th:text="*{beeType}">Role</span>
                     </div>
                     <div class="morph-btn btn-hex btn-navi pos-bot-left">
                         <span class="btn-icon">⏳</span>
-                        <span class="btn-text" th:text="'Kor: ' + *{ageInDays + ' nap'}">0 nap</span>
+                        <span class="btn-text" th:text="'Age: ' + *{ageInDays + ' days'}">0 days</span>
                     </div>
                     <a th:if="*{hiveId != null}"
                        th:href="@{/web/hives/{id}(id=*{hiveId})}"
                        class="morph-btn btn-hex btn-navi pos-top-right">
                         <span class="btn-icon">🏠</span>
-                        <span class="btn-text" th:text="*{hiveName}">Kaptár</span>
+                        <span class="btn-text" th:text="*{hiveName}">Hive</span>
                     </a>
                     <div th:if="*{hiveId == null}"
                          class="morph-btn btn-hex pos-top-right"
@@ -66,28 +64,28 @@
                           style="display: contents;">
                         <button type="submit" class="morph-btn btn-hex btn-navi pos-mid-right"
                                 th:data-confirm-msg="${bee.beeType.name() == 'QUEEN'}
-                                ? 'Vigyázz! Ha a Királynőt kilakoltatod, a teljes kaptár kiürül! Biztos vagy benne?'
-                                : 'Biztosan kilakoltatod ezt a méhet?'"
+                                ? 'Warning! If you evict the Queen, the entire hive will leave! Are you sure?'
+                                : 'Are you sure you want to evict this bee?'"
                                 onclick="return confirm(this.getAttribute('data-confirm-msg'));">
                             <span class="btn-icon">❌</span>
-                            <span class="btn-text">Kilakoltatás</span>
+                            <span class="btn-text">Eviction</span>
                         </button>
                     </form>
                     <a th:if="*{hiveId == null}"
                        th:href="@{/web/bees/move-in/{id}(id=*{id})}"
                        class="morph-btn btn-hex btn-navi pos-mid-right">
                         <span class="btn-icon">📥</span>
-                        <span class="btn-text">Beköltözés</span>
+                        <span class="btn-text">Move in</span>
                     </a>
                     <form th:action="@{/web/bees/execute/{id}(id=*{id})}" method="post"
                           style="display: contents;">
                         <button type="submit" class="morph-btn btn-hex btn-navi pos-bot-right"
                                 th:data-confirm-msg="${bee.beeType.name() == 'QUEEN'}
-                                ? 'Vigyázz! Ha a Királynőt kivégzed, a kaptár népe szétszéled! Biztos vagy benne?'
-                                : 'Biztosan kivégzed ezt a méhet?'"
+                                ? 'Warning! If you execute the Queen, the hive\'s population will disperse! Are you sure?'
+                                : 'Are you sure you want to execute this bee?'"
                                 onclick="return confirm(this.getAttribute('data-confirm-msg'));">
                             <span class="btn-icon">☠️</span>
-                            <span class="btn-text">Kivégzés</span>
+                            <span class="btn-text">Execution</span>
                         </button>
                     </form>
                 </div>

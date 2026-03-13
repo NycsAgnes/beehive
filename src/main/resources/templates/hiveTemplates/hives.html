@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hives</title>
@@ -9,15 +9,15 @@
 <body class="hive-body">
 
 <div class="main-container">
-    <h1 class="page-title">🐝 Méhészet 🐝</h1>
+    <h1 class="page-title">🐝 Apiary 🐝</h1>
     <div class="button-container">
         <a th:href="@{/web/hives/new}" class="morph-btn btn-nav btn-action btn-left">
             <span class="btn-icon">✚</span>
-            <span class="btn-text">Új Kaptár Építése</span>
+            <span class="btn-text">Build New Hive</span>
         </a>
         <a th:href="@{/web/bees}" class="morph-btn btn-nav btn-navi btn-right">
             <span class="btn-icon">❯</span>
-            <span class="btn-text">Méh-nyilvántartó Iroda</span>
+            <span class="btn-text">Bee Registry Office</span>
         </a>
     </div>
     <ul class="honeycomb-grid">
@@ -36,7 +36,7 @@
                 </div>
 
                 <div class="honeycomb-text">
-                    <h3 th:text="${hive.hiveName}">Kaptár 1</h3>
+                    <h3 th:text="${hive.hiveName}">Hive 1</h3>
 
                     <div class="pop-badge">
                         🐝 <span th:text="${hive.bees.size()}">0</span>
@@ -45,7 +45,7 @@
             </a>
             <form th:action="@{/web/hives/delete/{id}(id=${hive.id})}" method="post" class="delete-form">
                 <button type="submit" class="delete-icon"
-                        onclick="return confirm('Biztosan lerombolod ezt a kaptárat? A lakók hajléktalanok lesznek!')">
+                        onclick="return confirm('Are you sure you want to demolish this hive? The inhabitants will be homeless!')">
                     🗑️
                 </button>
             </form>

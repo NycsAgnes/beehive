@@ -79,7 +79,7 @@ public class BeeService {
     @Transactional
     public Long evictBee(Long beeId) {
         Bee bee = beeRepository.findById(beeId)
-                .orElseThrow(() -> new EntityNotFoundException("Nincs ilyen méh: " + beeId));
+                .orElseThrow(() -> new EntityNotFoundException("No such bee: " + beeId));
         Long oldHiveId = (bee.getHive() != null) ? bee.getHive().getId() : null;
         if (oldHiveId == null) {
             return null;

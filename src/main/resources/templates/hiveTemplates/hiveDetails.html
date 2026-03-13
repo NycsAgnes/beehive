@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hive details</title>
@@ -11,23 +11,23 @@
 <div class="container">
 
     <div class="header-section">
-        <h1 th:text="${hive.hiveName}">Kaptár Neve</h1>
+        <h1 th:text="${hive.hiveName}">Hive Name</h1>
         <div class="stats-bar">
-            <span>Népesség: <strong th:text="${hive.bees.size()}">0</strong></span>
+            <span>Population: <strong th:text="${hive.bees.size()}">0</strong></span>
         </div>
     </div>
     <div th:if="${message}" class="alert-box">
         <span class="alert-icon">💀</span>
-        <span th:text="${message}">Itt jelenik meg az üzenet</span>
+        <span th:text="${message}">Message appears here</span>
     </div>
     <div class="button-container">
         <a th:href="@{/web/hives}" class="morph-btn btn-nav btn-navi btn-left">
             <span class="btn-icon">❮</span>
-            <span class="btn-text">Vissza a Méhészetbe</span>
+            <span class="btn-text">Back to the Apiary</span>
         </a>
         <a th:href="@{/web/bees}" class="morph-btn btn-nav btn-navi btn-right">
             <span class="btn-icon">❯</span>
-            <span class="btn-text">Méh-nyilvántartó Iroda</span>
+            <span class="btn-text">Bee Registry Office</span>
         </a>
     </div>
 
@@ -39,13 +39,13 @@
                 </div>
                 <div class="honeycomb-text">
                     <h3>+</h3>
-                    <div class="bee-role">Királynő<br>beköltöztetése</div>
+                    <div class="bee-role">Move in<br>Queen</div>
                 </div>
             </a>
         </div>
         <div class="empty-message">
-            <p>Ez a kaptár jelenleg üres.</p>
-            <p>Még csak a szél zümmög benne.</p>
+            <p>This hive is currently empty.</p>
+            <p>Only the wind is buzzing inside.</p>
         </div>
     </div>
 
@@ -64,7 +64,7 @@
                 <form th:action="@{/web/bees/evict/{id}(id=${hive.queen.getId()})}" method="post">
                     <button type="submit" class="ghost-btn"
                             th:data-confirm-msg="
-                               'Vigyázz! Ha a Királynőt kilakoltatod, a teljes kaptár kiürül! Biztos vagy benne?'"
+                               'Warning! If you evict the Queen, the entire hive will leave! Are you sure?'"
                             onclick="return confirm(this.getAttribute('data-confirm-msg'));">
                         ❌
                     </button>
@@ -83,7 +83,7 @@
                     </div>
                 </a>
                 <form th:action="@{/web/bees/evict/{id}(id=${bee.id})}" method="post">
-                    <button type="submit" class="ghost-btn" onclick="return confirm('Biztos?');">❌</button>
+                    <button type="submit" class="ghost-btn" onclick="return confirm('Are you sure?');">❌</button>
                 </form>
             </li>
             <th:block th:if="${droneList.size() < 2}">
@@ -93,7 +93,7 @@
                         <div class="bee-image" style="background-image: url(/images/beeImages/Placeholder_drone.png);"></div>
                         <div class="honeycomb-text">
                             <h3>+</h3>
-                            <span class="pop-badge">Új Here</span>
+                            <span class="pop-badge">New Drone</span>
                         </div>
                     </a>
                 </li>
@@ -113,7 +113,7 @@
                     </a>
                     <form th:action="@{/web/bees/evict/{id}(id=${bee.id})}" method="post">
                         <button type="submit" class="ghost-btn"
-                                th:data-confirm-msg="'Biztosan kilakoltatod ezt a méhet?'"
+                                th:data-confirm-msg="'Are you sure you want to evict this bee?'"
                                 onclick="return confirm(this.getAttribute('data-confirm-msg'));">
                             ❌
                         </button>
@@ -125,10 +125,10 @@
                     <div class="bee-image"
                          th:style="'background-image: url(/images/beeImages/Placeholder_worker.png);'">
                     </div>
-                    <div class="honeycomb-text">
-                        <h3>+</h3>
-                        <span class="pop-badge">Új Dolgozó</span>
-                    </div>
+                        <div class="honeycomb-text">
+                            <h3>+</h3>
+                            <span class="pop-badge">New Worker</span>
+                        </div>
                 </a>
             </li>
         </ul>

@@ -9,23 +9,23 @@
 <body>
 <div class="main-container">
     <div class="header-section">
-        <h1>🐝 Iroda 🐝</h1>
+        <h1>🐝 Office 🐝</h1>
         <div class="stats-bar">
-            <span>Méhek száma: <strong th:text="${bees.size()}">0</strong></span>
+            <span>Number of bees: <strong th:text="${bees.size()}">0</strong></span>
         </div>
     </div>
     <div th:if="${message}" class="alert-box">
         <span class="alert-icon">💀</span>
-        <span th:text="${message}">Itt jelenik meg az üzenet</span>
+        <span th:text="${message}">Message appears here</span>
     </div>
     <div class="button-container">
         <a th:href="@{/web/hives}" class="morph-btn btn-nav btn-navi btn-left">
             <span class="btn-icon">❮</span>
-            <span class="btn-text">Vissza a Méhészetbe</span>
+            <span class="btn-text">Back to the Apiary</span>
         </a>
         <a th:href="@{/web/bees/create}" class="morph-btn btn-nav btn-action btn-right">
             <span class="btn-icon">✚</span>
-            <span class="btn-text">Új Méh teremtése</span>
+            <span class="btn-text">Create New Bee</span>
         </a>
     </div>
     <ul class="bee-grid">
@@ -38,18 +38,18 @@
                     <h3>
                         <a th:href="@{/web/bees/{id}(id=${bee.id})}"
                            th:text="${bee.beeName}"
-                           class="name-link">Méhecske neve</a>
+                           class="name-link">Bee name</a>
                     </h3>
                     <div th:if="${bee.hiveId != null}" class="morph-btn btn-list btn-navi">
                         <a th:href="@{/web/hives/{id}(id=${bee.hiveId})}" class="hive-link">
                             <span class="btn-icon">❯</span>
-                            <span class="btn-text" th:text="${bee.hiveName}">Kaptár</span>
+                            <span class="btn-text" th:text="${bee.hiveName}">Hive</span>
                         </a>
                     </div>
                     <div th:if="${bee.hiveId == null}" class="morph-btn btn-list btn-navi">
                         <a th:href="@{/web/bees/move-in/{id}(id=${bee.id})}" class="assign-link">
                             <span class="btn-icon"> ✚</span>
-                            <span class="btn-text">Beköltözés</span>
+                            <span class="btn-text">Move in</span>
                         </a>
                     </div>
                 </div>

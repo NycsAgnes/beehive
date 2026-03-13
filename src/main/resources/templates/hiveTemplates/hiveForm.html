@@ -13,12 +13,12 @@
         <input type="text" id="hiveName" th:field="*{hiveName}" required/>
     </div>
     <div class="form-group" >
-        <label for="capacity">Kaptár kapacitása:</label>
+        <label for="capacity">Hive Capacity:</label>
         <input type="number" id="capacity" th:field="*{capacity}" min="10" required/>
     </div>
     <div class="button-container" style="text-align: center; margin-top: 20px;">
-        <button type="submit" class="btn-save">Mentés</button>
-        <a th:href="@{/web/hives}" class="btn-cancel">Mégse</a>
+        <button type="submit" class="btn-save">Save</button>
+        <a th:href="@{/web/hives}" class="btn-cancel">Cancel</a>
     </div>
 </form>
 </body>

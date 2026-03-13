@@ -1,6 +1,5 @@
 package com.nycsagnes.beehive.controller;
 
-import com.nycsagnes.beehive.domain.Bee;
 import com.nycsagnes.beehive.domain.BeeType;
 import com.nycsagnes.beehive.dto.incoming.BeeCreateUpdateCommand;
 import com.nycsagnes.beehive.dto.outgoing.BeeInfo;
@@ -116,9 +115,9 @@ public class WebBeeController {
         BeeType beetype = executedBee.getBeeType();
         beeService.deleteBee(id);
         if (executedBee.getBeeType() == BeeType.QUEEN) {
-            redirectAttributes.addFlashAttribute("message", "A merénylet sikeres: " + beeName + " királynő halott. A kaptár kiürült!");
+            redirectAttributes.addFlashAttribute("message", "Assassination successful: Queen " + beeName + " is dead. The hive has been emptied!");
         } else {
-            redirectAttributes.addFlashAttribute("message", beeName + " végleg eltávozott az örök méhlegelőre.");
+            redirectAttributes.addFlashAttribute("message", beeName + " has departed for the eternal bee pastures.");
         }
         if (hiveId != null) {
             return "redirect:/web/hives/" + hiveId;
