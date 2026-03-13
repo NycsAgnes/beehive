@@ -692,7 +692,7 @@ input:focus {
         flex: 0 1 42vw;
         max-width: 42vw;
         aspect-ratio: 0.833333;
-        margin-bottom: calc(42vw / 0.833333 * -0.25); /* Negatív margó, hogy felugorjon a sejt a helyére */
+        margin-bottom: calc(42vw / 0.833333 * -0.25);
     }
 
     .honeycomb-cell:nth-child(3n + 3) {
